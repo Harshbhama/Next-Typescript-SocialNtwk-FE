@@ -14,6 +14,10 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    // Adding noUsedParameters noImplicitReturns noUnusedLocals
+    "noUnusedParameters": true,  
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
     "paths": {
       "@/*": ["./*"]
     }
