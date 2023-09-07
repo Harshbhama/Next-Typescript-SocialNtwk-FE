@@ -75,6 +75,7 @@ export function LoginForm({setStorage}: any) {
 					}
 					containerProps={{ className: "-ml-2.5" }}
 				/>
+				{/* <Button className="mt-6 bg-primary-blue text-primary-red" fullWidth onClick={onSignOptions}> */}
 				<Button className="mt-6" fullWidth onClick={onSignOptions}>
 					{formOptions?.btn}
 				</Button>

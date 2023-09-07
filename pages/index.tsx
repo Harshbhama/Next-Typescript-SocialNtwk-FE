@@ -1,6 +1,6 @@
 
 
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import variables from "../styles/login.module.scss";
 import { LoginForm } from "@/components/LoginForm";
 import Router from "next/router";
@@ -17,10 +17,6 @@ export default function Home() {
   return (
     <div className={`container  ${variables.loginPage}`}>
       {mount && <LoginForm setStorage={setStorage}/>}
-      {/* <div className="columns-1 md:columns-2">
-        <p>First</p>
-        <p>Second</p>
-      </div> */}
     </div>
   )
 }

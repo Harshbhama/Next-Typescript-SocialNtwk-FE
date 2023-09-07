@@ -14,6 +14,12 @@ const config: Config = withMT({
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      colors:{
+        'primary': {
+          'red': 'red',
+          'blue': 'blue'
+        }
+      }
     },
     container: {
       center: true
