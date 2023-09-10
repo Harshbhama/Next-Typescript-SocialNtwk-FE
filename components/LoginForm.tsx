@@ -77,7 +77,7 @@ export function LoginForm({setStorage}: any) {
 				/>
 				{/* <Button className="mt-6 bg-primary-blue text-primary-red" fullWidth onClick={onSignOptions}> */}
 				<Button className="mt-6" fullWidth onClick={onSignOptions}>
-					{formOptions?.btn}
+					{formOptions?.btn}p
 				</Button>
 				<Typography color="gray" className="mt-4 text-center font-normal">
 					Already have an account?{" "}
