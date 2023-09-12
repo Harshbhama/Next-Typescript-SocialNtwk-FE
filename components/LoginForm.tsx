@@ -9,6 +9,9 @@ import {
 
 import variables from "../styles/LoginForm/login-form.module.scss"
 import { LoginApi } from "@/apis/Login/LoginApi";
+import { getLoginThunk } from "@/store/reducers/loginReducerRedux";
+import { useSelector } from "react-redux";
+import store from "@/store/store";
 export function LoginForm({setStorage}: any) {
 	const [formSignup, setForm] = useState(true);
 	const [formProps, setFormProps] = useState({
@@ -16,6 +19,8 @@ export function LoginForm({setStorage}: any) {
 		email: "",
 		password: ""
 	})
+	const selector = useSelector(state => state);
+	console.log("selector", selector);
 	const onToggleOptions = () => {
 		if(formSignup){
 			setForm(false)
@@ -28,7 +33,9 @@ export function LoginForm({setStorage}: any) {
 	}
 	const onSignOptions = async () => {
 		try{
-			await LoginApi(formProps, !formSignup ? "login": "register")
+			let form = {...formProps, "checkForLogin": !formSignup ? "login": "register"}
+			// await LoginApi(formProps, !formSignup ? "login": "register")
+			let s = await store.dispatch(getLoginThunk(form));
 			localStorage.setItem("loginDetails", "true");
 			setStorage(true);
 		}catch(err){
@@ -77,7 +84,7 @@ export function LoginForm({setStorage}: any) {
 				/>
 				{/* <Button className="mt-6 bg-primary-blue text-primary-red" fullWidth onClick={onSignOptions}> */}
 				<Button className="mt-6" fullWidth onClick={onSignOptions}>
-					{formOptions?.btn}p
+					{formOptions?.btn}
 				</Button>
 				<Typography color="gray" className="mt-4 text-center font-normal">
 					Already have an account?{" "}

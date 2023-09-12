@@ -8,7 +8,6 @@ interface Body {
 }
 
 export const LoginApi = (body:Body, checkForLogin: String) => {
-  console.log(body)
   axios.defaults.withCredentials = true;
   let email = body?.email;
   let password = body?.password;
@@ -44,8 +43,4 @@ export const LoginApi = (body:Body, checkForLogin: String) => {
       reject(err)
     });
   })
-}
-
-export const Register = () => {
-
 }

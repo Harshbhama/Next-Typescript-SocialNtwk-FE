@@ -1,7 +1,6 @@
 import axios from "axios";
 import { fetchStories } from "@/store/actions/storiesAction";
-
-export const getStories = () => (dispatch: any) => {
+export const getStories = () => {
   return new Promise<any>((resolve, reject) => {
     axios({
       url: 'http://localhost:4000/stories/graphql',
@@ -19,15 +18,12 @@ export const getStories = () => (dispatch: any) => {
             }
           }`
       }
-    }).then((result) => {
+    }).then((result:any) => {
       console.log(result);
-      dispatch(fetchStories(result))
+      // dispatch(fetchStories(result))
       resolve(result)
     }).catch(err => {
       reject(err)
     });
   })
 }
-
-
-
