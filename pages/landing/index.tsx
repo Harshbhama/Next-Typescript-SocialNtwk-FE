@@ -4,34 +4,62 @@ import Router from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { increment, incrementByAmount } from "@/store/counterSlice";
 import { addTodo } from "@/store/reducers/todoSlice";
-import { getStoriesThunk } from "@/store/reducers/getStoriesReducer";
+import getStoriesReducer, { getStoriesThunk, getStoriesByIdThunk } from "@/store/reducers/getStoriesReducer";
 import { increamentTest } from "@/store/reducers/getStoriesReducer";
 import store from "@/store/store";
+import { StoriesCard } from "@/components/Card";
+interface State {
+  getStoriesReducer: {
+    loading: String,
+    data: {
+      data: {
+        getAllStory: []
+      }
+    }
+  }
+}
+interface SelectedSideBar {
+  sideBarSlice: {
+    selected: String
+  }
+} 
 const Landing  = () => {
   const [stories, setStory] = useState<{data?: any}>({});
-  const selector = useSelector((state) => state);
-  const dispatch = useDispatch();
-  console.log("selector", selector);
+  const selector = useSelector((state: State) => state.getStoriesReducer);
+  const selectedBar = useSelector((state: SelectedSideBar) => state.sideBarSlice);
+  console.log("selectedBar",selectedBar)
   useEffect(() => {
-    // dispatch(increment())
-    // dispatch(increment())
-    // dispatch(incrementByAmount(10))
-    // dispatch(addTodo({id: '123', text: 'asd'}))
-    // dispatch(addTodo({id: '123', text: 'aasdasd'}))
-    let k = store.dispatch(getStoriesThunk()).then(res => setStory(res.payload));
-      
+    store.dispatch(getStoriesThunk()).then(res => setStory(res.payload?.data?.data?.getAllStory));
   },[])
   useEffect(() => {
-    if(Array.isArray(stories?.data?.errors)){
+    if(selectedBar.selected === 'My Feed'){
+      store.dispatch(getStoriesByIdThunk()).then(res => setStory(res.payload?.data?.data?.getAllStory));
+    }else{
+      store.dispatch(getStoriesThunk()).then(res => setStory(res.payload?.data?.data?.getAllStory));
+    }
+  },[selectedBar.selected])
+  useEffect(() => {
+    if(stories === null){
       localStorage.removeItem("loginDetails");
       Router.push("/");
       setStory({});
     }
-  },[stories])
+    console.log("stories", stories)
+  },[stories])  
+  console.log(selector)
   return(
     <>
-      Landing Page
-      <button onClick={() => dispatch(increamentTest())}>Test</button>
+     {selector.loading === 'pending' && <div>Loading</div>}
+     <div className="grid gap-4 grid-cols-2">
+      {
+        Array.isArray(stories) && stories.map((story, index) => {
+          return(
+            <StoriesCard story={story}/>
+          )
+        })
+      }
+     </div>
+    
     </>
   )
 }

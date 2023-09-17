@@ -60,9 +60,9 @@ export function LoginForm({setStorage}: any) {
 			</Typography>
 			<form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
 				<div className="mb-4 flex flex-col gap-6">
-					{formSignup && <Input size="lg" label="Name" onChange={(e) => onInputChange(e, "name")}/>}
-					<Input size="lg" label="Email" onChange={(e) => onInputChange(e, "email")}/>
-					<Input type="password" size="lg" label="Password" onChange={(e) => onInputChange(e, "password")}/>
+					{formSignup && <Input size="lg" label="Name" onChange={(e) => onInputChange(e, "name")} crossOrigin=""/>}
+					<Input size="lg" label="Email" onChange={(e) => onInputChange(e, "email")} crossOrigin=""/>
+					<Input type="password" size="lg" label="Password" onChange={(e) => onInputChange(e, "password")} crossOrigin=""/>
 				</div>
 				<Checkbox
 					label={
@@ -81,6 +81,7 @@ export function LoginForm({setStorage}: any) {
 						</Typography>
 					}
 					containerProps={{ className: "-ml-2.5" }}
+					crossOrigin=""
 				/>
 				{/* <Button className="mt-6 bg-primary-blue text-primary-red" fullWidth onClick={onSignOptions}> */}
 				<Button className="mt-6" fullWidth onClick={onSignOptions}>

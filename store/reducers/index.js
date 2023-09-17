@@ -10,5 +10,5 @@ export default combineReducers({
     counterSlice: counterSlice,
     todoSlice: todoSlice,
     getStoriesReducer: getStoriesReducer,
-    loginReducerRedux: loginReducerRedux
+    loginReducerRedux: loginReducerRedux,
 })

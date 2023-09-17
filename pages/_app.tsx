@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 import {createWrapper} from 'next-redux-wrapper'
 import store from "@/store/store";
 import { Layout } from "./layout";
-import '@/styles/globals.css'
+import '@/styles/globals.css';
 class MyApp extends App{
   render(){
     const {Component, pageProps} = this.props;

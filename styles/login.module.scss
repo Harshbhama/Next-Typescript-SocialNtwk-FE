@@ -1,3 +1,32 @@
 .loginPage{
   color: red;
 }
+.colCheck{
+  display: flex;
+  flex-direction: row;
+  .colCheck3{
+    
+    width: 30%;
+  }
+  .colCheck9{
+    width: 70%;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .contentAlign{
+    // display: flex;
+    // justify-content: center;
+    height: 90vh;
+    overflow: auto;
+
+  }
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+    .colCheck3, .colCheck9{
+      width: 100%;
+    }
+    .colCheck3{
+      margin-bottom: 20px;
+    }
+  }
+}

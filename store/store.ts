@@ -9,6 +9,7 @@ import counterSlice from './counterSlice'
 import todoSlice from './reducers/todoSlice'
 import { useDispatch } from 'react-redux'
 import loginReducerRedux from './reducers/loginReducerRedux'
+import sideBarSlice from './reducers/sideBarSlice'
 const initialState = {}
 
 const middleware = [thunk];
@@ -21,7 +22,8 @@ const store = configureStore({
         getStoriesReducer: getStoriesReducer,
         counterSlice: counterSlice,
         todoSlice: todoSlice,
-        loginReducerRedux: loginReducerRedux
+        loginReducerRedux: loginReducerRedux,
+        sideBarSlice: sideBarSlice
     }
   })
 
