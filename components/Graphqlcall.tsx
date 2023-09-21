@@ -17,7 +17,7 @@ const Graphqlcall = () => {
         }`
       }
     }).then((result) => {
-      console.log(result)
+
     });
   },[])
   return(

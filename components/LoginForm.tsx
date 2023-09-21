@@ -20,7 +20,7 @@ export function LoginForm({setStorage}: any) {
 		password: ""
 	})
 	const selector = useSelector(state => state);
-	console.log("selector", selector);
+
 	const onToggleOptions = () => {
 		if(formSignup){
 			setForm(false)

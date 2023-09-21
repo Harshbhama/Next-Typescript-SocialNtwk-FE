@@ -9,8 +9,7 @@ class ErrorBoundaries extends React.Component<any, {hasError: Boolean}>{
     // Used here for the fallback UI
   }
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
-    console.log("error", error)
-    console.log("errorInfo", errorInfo)
+
     // Used here for the logging systems
   }
 

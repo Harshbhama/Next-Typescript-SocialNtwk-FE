@@ -12,7 +12,7 @@ const RestApi = () => {
       method: 'post',
       data: obj
     }).then((result) => {
-      console.log(result)
+   
     });
   },[])
   return(

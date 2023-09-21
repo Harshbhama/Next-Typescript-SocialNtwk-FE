@@ -4,7 +4,7 @@ import { TestContext } from "./ContextApi";
 
 const ContextConsumer = () => {
   const test: any = useContext(TestContext);
-  console.log("test",test);
+
   useEffect(() => {
     test?.dispatch({type: "ADD"})
   },[])

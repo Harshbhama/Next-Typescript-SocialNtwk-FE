@@ -10,12 +10,7 @@ import Graphqlcall from "@/components/Graphqlcall";
 import RestApi from "@/components/RestApi";
 const Test = (props: any) => {
   const [state, setState] = useState(0);
-  // useEffect(() => {
-  //   help("a")
-  // },[])
-  useEffect(() => {
-    console.log("Cookiuessss",document.cookie)
-  },[])
+
   return (
     <div>
       <ErrorBoundaries fallback={<p>Here...</p>}>

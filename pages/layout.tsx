@@ -9,8 +9,7 @@ export const Layout = ({children}: any) => {
     asPath,        // the value: "/question/how-do-you-get-the-current-url-in-nextjs/"
     pathname,   // the value: "/question/[slug]"
   } = useRouter();
-  console.log("asPath",asPath)
-  console.log("pathname",pathname)
+
   const MemoizedSidebar = React.memo(DefaultSidebar)
    return(
     <>
