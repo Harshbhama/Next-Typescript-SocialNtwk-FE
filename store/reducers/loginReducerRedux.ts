@@ -6,7 +6,7 @@ export const getLoginThunk = createAsyncThunk(
     'login',
     async (body: BodyInterface, thunkAPI) => {
         const response = await LoginApi(body, body.checkForLogin)
-        console.log("response in loginApi thunk", response)
+        //console.log("response in loginApi thunk", response)
         return response
     }
 )
@@ -37,13 +37,15 @@ const loginSlice = createSlice({
     },
     extraReducers: (builder) => {
         // Add reducers for additional action types here, and handle loading state as needed
-        builder.addCase(getLoginThunk.fulfilled, (state, action) => {
+        builder.addCase(getLoginThunk.fulfilled, (state, action: any) => {
             // Add user to the state array
-            state.userLoginDetails = action.payload
+            console.log(action)
+            localStorage.setItem("userId", action.payload.data.data.loginUser.user_id);
+            state.userLoginDetails = action.payload.data.data.loginUser.user_id
             state.loading = 'idle'
         })
         builder.addCase(getLoginThunk.pending, (state, action) => {
-            console.log("In pending state")
+            //console.log("In pending state")
             state.loading = 'pending'
         })
         // builder.addCase(increamentTest, (state, action) => {

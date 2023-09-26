@@ -4,7 +4,7 @@ import { DefaultSidebar } from "@/components/Sidebar/sideBar";
 import { useRouter } from 'next/router'
 import { checkForLoginPage } from "@/helpers/utils";
 export const Layout = ({children}: any) => {
-  console.log("In Layout")
+  //console.log("In Layout")
   const {
     asPath,        // the value: "/question/how-do-you-get-the-current-url-in-nextjs/"
     pathname,   // the value: "/question/[slug]"

@@ -1,8 +1,8 @@
 import React, { useEffect, memo } from "react";
 const MemoComponent = () => {
-  console.log("In memo component");
+  //console.log("In memo component");
   useEffect(() => {
-    console.log("In memo component useEffect");
+    //console.log("In memo component useEffect");
   },[])
  
   return(
@@ -11,8 +11,8 @@ const MemoComponent = () => {
 }
 
 function moviePropsAreEqual(prevProps: any, nextProps: any) {
- console.log(prevProps)
- console.log(nextProps)
+ //console.log(prevProps)
+ //console.log(nextProps)
  return true
 }
 export default memo(MemoComponent, moviePropsAreEqual);

@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice, createAction } from '@reduxjs/toolkit'
-import { getLikedStoriesForUser } from '@/apis/Liked/Liked'
+import { getLikedStoriesForUser, makeUnLike } from '@/apis/Liked/Liked'
 // First, create the thunk
 export const getLikedThunk = createAsyncThunk(
   'liked/getLiked',
@@ -8,13 +8,32 @@ export const getLikedThunk = createAsyncThunk(
     return response
   }
 )
+export const makeLikeUnlikeThunk = createAsyncThunk(
+  'liked/makeLikeUnlike',
+  async (payload: Payload, thunkAPI) => {
+    let story_id: number = payload?.story_id
+    let likeCondition = payload?.likeCondition
+    if(likeCondition){
+      const response = await makeUnLike(story_id, true)
+      return response
+    }else{
+      const response = await makeUnLike(story_id)
+      return response
+    }
+    
+  }
+)
 interface UsersState {
   liked: []
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
 }
+interface Payload {
+  story_id: number,
+  likeCondition: Boolean
+}
 
 const initialState = {
-    liked: [],
+  liked: [],
   loading: 'idle',
 }  as UsersState
 export const increamentTest = createAction<UsersState>('increamentTest')
@@ -30,12 +49,15 @@ const likedReducer = createSlice({
     // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(getLikedThunk.fulfilled, (state, action: PayloadAction<any>) => {
       // Add user to the state array
-      console.log("action.payload for liked data", action.payload)
+      //console.log("action.payload for liked data", action.payload)
       state.liked = action.payload
       state.loading = 'idle'
     })
     builder.addCase(getLikedThunk.pending, (state, action) => {
         state.loading = 'pending'
+    })
+    builder.addCase(makeLikeUnlikeThunk.pending, (state, action) => {
+      state.loading = 'pending'
     })
 
   },

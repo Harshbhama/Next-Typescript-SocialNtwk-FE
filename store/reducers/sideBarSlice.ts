@@ -6,7 +6,7 @@ interface SelectedSideBar {
 }
 const sideBarSlice = createSlice({
   name: 'users/setSideBarIndex',
-  initialState: { selected: '' } as SelectedSideBar,
+  initialState: { selected: 'All Feed' } as SelectedSideBar,
   reducers: {
     changeSelectedSideBar(state, action: PayloadAction<String>) {
       state.selected = action.payload

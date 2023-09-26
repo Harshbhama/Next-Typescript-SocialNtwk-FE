@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useState} from "react"
+import React, {memo, useCallback, useEffect, useState} from "react"
 import { getStories } from "@/apis/Stories/Story"
 import Router from "next/router";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,14 +38,16 @@ interface LikedInt {
 
 const Landing  = () => {
   const [stories, setStory] = useState<{data?: any}>({});
-  const selector = useSelector((state: State) => state.getStoriesReducer);
+  const likedData = useSelector((state: State) => state.getStoriesReducer);
   const selectedBar = useSelector((state: SelectedSideBar) => state.sideBarSlice);
-  const likedData = useSelector((state: LikedInt) => state.likedReducer.liked)
   useEffect(() => {
     store.dispatch(getStoriesWithLikesThunk()).then(res => setStory(res.payload));
     store.dispatch(getLikedThunk());
   },[])
-  useEffect(() => {
+  // const test = useCallback(() => {
+
+  // },[])
+  const fetchData = (): void => {
     if(selectedBar.selected === 'My Feed'){
       store.dispatch(getStoriesByIdThunk()).then((res) => {
         setStory(res.payload)
@@ -55,24 +57,26 @@ const Landing  = () => {
         setStory(res.payload)
       });
     }
+  }
+  useEffect(() => {
+    fetchData()
   },[selectedBar.selected])
   useEffect(() => {
     if(stories === null){
       localStorage.removeItem("loginDetails");
+      localStorage.removeItem("userId");
       Router.push("/");
       setStory({});
     }
-
   },[stories])  
- 
   return(
     <>
-     {selector.loading === 'pending' && <LinearIndeterminate />}
+     {likedData.loading === 'pending' && <LinearIndeterminate />}
      <div className="grid gap-4 grid-cols-2">
       {
         Array.isArray(stories) && stories.map((story, index) => {
           return(
-            <StoriesCard story={story}/>
+            <StoriesCard story={story} fetchData = {fetchData}/>
           )
         })
       }

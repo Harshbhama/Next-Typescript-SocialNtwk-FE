@@ -41,11 +41,12 @@ export const getStories = (allStories: Boolean) => {
   })
 }
 
-export const getStoriesWithLikes = () => {
+export const getStoriesWithLikes = (allStories: Boolean) => {
   return new Promise<any>((resolve, reject) => {
-    let queryGenerator =  `query{
+    let queryGenerator =  allStories ? `query{
       getStoryWithLikes{
         id
+        title
         description
         like_count
         user_id
@@ -53,6 +54,18 @@ export const getStoriesWithLikes = () => {
         picture
         liked_by_user_id
       }
+    }` : 
+    `query{
+      getStoryWithLikesById {
+        id
+        title
+        description
+        like_count
+        picture
+        user_id
+        msg
+        liked_by_user_id
+    }
     }`
     axios({
       url: 'http://localhost:4000/stories/graphql',
@@ -63,6 +76,7 @@ export const getStoriesWithLikes = () => {
       }
     }).then((result: any) => {
       resolve(result)
+      console.log("Likes", result)
     }).catch(err => {
       reject(err)
     });

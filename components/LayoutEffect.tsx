@@ -4,17 +4,17 @@ const LayoutEffect = () => {
   const [stateEffect, setState] = useState(false);
   const [stateUseEffect, setUseEffectState] = useState(false);
   useEffect(() => {
-    console.log("In useEffect")
+    //console.log("In useEffect")
     setState(true);
 
   },[])
   useLayoutEffect(() => {
-    console.log("In use Layout Effect")
+    //console.log("In use Layout Effect")
     setUseEffectState(true);
   
   },[])
-  console.log("stateEffect", stateEffect);
-  console.log("stateUseEffect", stateUseEffect);
+  //console.log("stateEffect", stateEffect);
+  //console.log("stateUseEffect", stateUseEffect);
 
   return(
     <>

@@ -1,7 +1,7 @@
 import React from "react"
 const testDoc = (document: any) => {
   // Any type
-  console.log(document)
+  //console.log(document)
 }
 
 function User(){
@@ -18,7 +18,7 @@ const functionToLbs = (weight: number | string): number => { // Union operator
 }
 
 const calcTax = (income: number, taxYear = 2023): number => {
-  console.log(income) // If income is not read, it will throw error -- Due to noUnusedParameters
+  //console.log(income) // If income is not read, it will throw error -- Due to noUnusedParameters
 
   if(taxYear>1000){
     return income
@@ -31,15 +31,15 @@ const calcTax = (income: number, taxYear = 2023): number => {
 const checkForVar = (): void => {
   var k: number = 10;
   function abc(){
-    console.log(k)
+    //console.log(k)
     var t: number = 20;
     let a: String = 'hello'
     if(a == 'hello'){
       let b: String = 'world'
       var c: String = 'aaaaa'
     }
-    // console.log(b) -- It will throw error because let is block scope
-    console.log("var function scope",c) // This will work because var in function scoped
+    // //console.log(b) -- It will throw error because let is block scope
+    //console.log("var function scope",c) // This will work because var in function scoped
   }
   abc()
 }
@@ -50,21 +50,21 @@ const checkForMapForEachReduce = (): void => {
   let k: (Number)[] = a.map((val, index) => {
     return(val+1)
   })
-  console.log("Check for Map",k)
-  // console.log("Check for Map",a) -- Map doesnot mutate original array
+  //console.log("Check for Map",k)
+  // //console.log("Check for Map",a) -- Map doesnot mutate original array
   let p = []
   a.forEach((val, index) => {
     val = val+1
   })
-  console.log("Check for Foreach",a) // Foreach doesnot mutate array as well
+  //console.log("Check for Foreach",a) // Foreach doesnot mutate array as well
   a.filter(x => x>3)
-  console.log("Check for filter", a) // Filter doesnot mutate array as well
+  //console.log("Check for filter", a) // Filter doesnot mutate array as well
 
   let arr = [1,2,3,4]
   let newArr = arr.reduce((accumulator, currentValue) => {
     return accumulator + currentValue // Reduce doesn't mutate array as well
   })
-  console.log("Reduce arr", newArr)
+  //console.log("Reduce arr", newArr)
 }
 
 const checkForHositing = () : void => {
@@ -72,15 +72,15 @@ const checkForHositing = () : void => {
 
   k = 10 // Hoisting occurs with var
   var k;
-  console.log(k)
+  //console.log(k)
 
   // t = 20 // Hoisting doesn't occur with let
   // let t;
-  // console.log(t)
+  // //console.log(t)
 }
 
 const help = (data: String) => {
-  console.log(data)
+  //console.log(data)
   let age: number = 20; // Statistically typed
 
   let sales: number = 123_456_789;
@@ -98,7 +98,7 @@ const help = (data: String) => {
   //Enums
   const enum Size {Small = 1, Medium, Large}
   let mySize: Size = Size.Medium
-  console.log(mySize) // 2
+  //console.log(mySize) // 2
 
   //Functions
   calcTax(10_000, 2023);
@@ -115,11 +115,11 @@ const help = (data: String) => {
   let employee: Employee = {id: 1,
     name: "",
     retire: (date: Date) => {
-      console.log(date)
+      //console.log(date)
     }
   } // If we don't want to set name: "", we can also use name?: string
   employee.name="Harsh"
-  console.log(employee)
+  //console.log(employee)
 
   // Union operators
   functionToLbs(10);
@@ -127,14 +127,14 @@ const help = (data: String) => {
   //Literal (exact, specefic)
   type Quantity = 50 | 100
   let quantity: Quantity = 100
-  console.log(quantity)
+  //console.log(quantity)
 
   // Nullables
   function greet(name: String | null){
     if(name){
-      console.log(name.toLocaleUpperCase)
+      //console.log(name.toLocaleUpperCase)
     }else{
-      console.log("Hola")
+      //console.log("Hola")
     }
   }
   greet(null)
@@ -167,7 +167,7 @@ const help = (data: String) => {
 
   // A constructor in javaascript is used to create object, it is done with new keyword
   var userCons = new User();
-  console.log("Contructor", userCons)
+  //console.log("Contructor", userCons)
   
 
 

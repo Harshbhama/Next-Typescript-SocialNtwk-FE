@@ -39,7 +39,7 @@ export function LoginForm({setStorage}: any) {
 			localStorage.setItem("loginDetails", "true");
 			setStorage(true);
 		}catch(err){
-			console.log(err);
+			//console.log(err);
 		}
 	}
 	const formOptions = {

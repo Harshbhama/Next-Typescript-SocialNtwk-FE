@@ -11,14 +11,14 @@ export const getStoriesThunk = createAsyncThunk(
 export const getStoriesByIdThunk = createAsyncThunk(
   'users/getStoriesById',
   async (thunkAPI) => {
-    const response = await getStories(false)
-    return response?.data?.data?.getAllStoryById
+    const response = await getStoriesWithLikes(false)
+    return response?.data?.data?.getStoryWithLikesById
   }
 )
 export const getStoriesWithLikesThunk = createAsyncThunk(
   'users/getStoriesWithLikes',
   async (thunkAPI) => {
-    const response = await getStoriesWithLikes()
+    const response = await getStoriesWithLikes(true)
     return response?.data?.data?.getStoryWithLikes
   }
 )
@@ -52,23 +52,25 @@ const usersSlice = createSlice({
       state.loading = 'idle'
     })
     builder.addCase(getStoriesThunk.pending, (state, action) => {
-        console.log("In pending state")
+        //console.log("In pending state")
         state.loading = 'pending'
     })
     builder.addCase(getStoriesByIdThunk.fulfilled, (state, action) => {
-      state.idSpecificEntities = action.payload?.payload?.data?.data?.getAllStoryById
+      //console.log("action id",action)
+      state.idSpecificEntities = action.payload
       state.loading = 'idle'
     })
     builder.addCase(getStoriesByIdThunk.pending, (state, action) => {
-      console.log("In pending state")
+      //console.log("In pending state")
       state.loading = 'pending'
     })
     builder.addCase(getStoriesWithLikesThunk.fulfilled, (state, action) => {
-      state.likedData = action.payload?.payload?.data?.data?.getStoryWithLikes
+      //console.log("action", action)
+      state.likedData = action.payload
       state.loading = 'idle'
     })
     builder.addCase(getStoriesWithLikesThunk.pending, (state, action) => {
-      console.log("In pending state")
+      //console.log("In pending state")
       state.loading = 'pending'
     })
     builder.addCase(increamentTest, (state, action) => {
