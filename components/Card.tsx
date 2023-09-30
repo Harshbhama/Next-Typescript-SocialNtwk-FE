@@ -13,11 +13,11 @@ interface Story {
   story: {
     id: number,
     description: string,
-    like_count: number,
+    liked_count: number,
     user_id: Number,
     picture: string,
     title: string,
-    liked_by_user_id: null | number
+    liked_by_user: [number | null]
   }
   fetchData: any
 }
@@ -31,8 +31,8 @@ import { trimText } from "@/helpers/utils";
 import { makeLikeUnlikeThunk } from "@/store/reducers/likedReducer";
 
 export const StoriesCard: React.FC<Story> = ({story, fetchData}) => {
-  const currentUserId = localStorage.getItem("userId");
-
+  const currentUserId = Number(localStorage.getItem("userId"));
+  console.log(currentUserId)
   const likeUnlikeMethod = async (id:number, condition: Boolean) => {
     let payload: payload
     if(!condition){
@@ -76,8 +76,8 @@ export const StoriesCard: React.FC<Story> = ({story, fetchData}) => {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
-            fill={story?.liked_by_user_id == currentUserId ? "currentColor": "#f8f8fe"}
-            onClick = {() => likeUnlikeMethod(story.id, story?.liked_by_user_id == currentUserId)}
+            fill={story?.liked_by_user.includes(currentUserId) ? "currentColor": "#f8f8fe"}
+            onClick = {() => likeUnlikeMethod(story.id, story?.liked_by_user.includes(currentUserId))}
             className="h-6 w-6"
           >
             <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
@@ -105,7 +105,7 @@ export const StoriesCard: React.FC<Story> = ({story, fetchData}) => {
                 clipRule="evenodd"
               />
             </svg>
-            {story?.like_count}
+            {story?.liked_count}
           </Typography>
         </div>
         <Typography color="gray">

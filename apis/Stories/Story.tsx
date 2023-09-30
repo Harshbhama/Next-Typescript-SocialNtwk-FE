@@ -44,15 +44,16 @@ export const getStories = (allStories: Boolean) => {
 export const getStoriesWithLikes = (allStories: Boolean) => {
   return new Promise<any>((resolve, reject) => {
     let queryGenerator =  allStories ? `query{
-      getStoryWithLikes{
+      getStoryWithLikes {
         id
         title
         description
         like_count
+        picture
         user_id
         msg
-        picture
-        liked_by_user_id
+        liked_by_user
+        liked_count
       }
     }` : 
     `query{
@@ -64,8 +65,9 @@ export const getStoriesWithLikes = (allStories: Boolean) => {
         picture
         user_id
         msg
-        liked_by_user_id
-    }
+        liked_by_user
+        liked_count
+      }
     }`
     axios({
       url: 'http://localhost:4000/stories/graphql',

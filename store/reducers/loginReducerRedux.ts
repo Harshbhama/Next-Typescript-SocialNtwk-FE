@@ -1,12 +1,18 @@
 import { PayloadAction, createAsyncThunk, createSlice, createAction } from '@reduxjs/toolkit'
 import { getStories } from '@/apis/Stories/Story'
-import { LoginApi } from '@/apis/Login/LoginApi'
+import { LoginApi, LogoutApi } from '@/apis/Login/LoginApi'
 // First, create the thunk
 export const getLoginThunk = createAsyncThunk(
     'login',
     async (body: BodyInterface, thunkAPI) => {
         const response = await LoginApi(body, body.checkForLogin)
-        //console.log("response in loginApi thunk", response)
+        return response
+    }
+)
+export const logoutThunk = createAsyncThunk(
+    'logout',
+    async (thunkAPI) => {
+        const response = await LogoutApi()
         return response
     }
 )

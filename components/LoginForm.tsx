@@ -13,7 +13,7 @@ import { getLoginThunk } from "@/store/reducers/loginReducerRedux";
 import { useSelector } from "react-redux";
 import store from "@/store/store";
 export function LoginForm({setStorage}: any) {
-	const [formSignup, setForm] = useState(true);
+	const [formSignup, setForm] = useState(false);
 	const [formProps, setFormProps] = useState({
 		name: "",
 		email: "",
@@ -34,7 +34,6 @@ export function LoginForm({setStorage}: any) {
 	const onSignOptions = async () => {
 		try{
 			let form = {...formProps, "checkForLogin": !formSignup ? "login": "register"}
-			// await LoginApi(formProps, !formSignup ? "login": "register")
 			let s = await store.dispatch(getLoginThunk(form));
 			localStorage.setItem("loginDetails", "true");
 			setStorage(true);

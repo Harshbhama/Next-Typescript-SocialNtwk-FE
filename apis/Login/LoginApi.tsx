@@ -44,3 +44,26 @@ export const LoginApi = (body:Body, checkForLogin: String) => {
     });
   })
 }
+
+export const LogoutApi = () => {
+  return new Promise((resolve, reject) => {
+    let queryGenerator =
+    `mutation{
+      logoutUser{
+        error
+        msg
+      }
+   }`
+    axios({ 
+      url: 'http://localhost:4000/login/graphql',
+      method: 'post',
+      data: {
+        query: queryGenerator
+      }
+    }).then((result) => {
+      resolve(result)
+    }).catch(err => {
+      reject(err)
+    });
+  })
+}

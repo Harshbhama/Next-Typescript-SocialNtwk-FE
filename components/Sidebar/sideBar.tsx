@@ -18,7 +18,9 @@ import {
 import variables from "../../styles/login.module.scss";
 import { useState } from "react";
 import { changeSelectedSideBar } from "@/store/reducers/sideBarSlice";
+import { logoutThunk } from "@/store/reducers/loginReducerRedux";
 import store from "@/store/store";
+import { logoutMethod } from "@/helpers/utils";
 interface SidebarProps {
   title: String,
   icon: any,
@@ -46,7 +48,12 @@ export function DefaultSidebar({ children } : any) {
 const onSelectBar = (props: SidebarProps, index: number): void => {
   setSelected(index);
   store.dispatch(changeSelectedSideBar(props?.title))
-   
+  console.log("index",index)
+  if(index === 5){
+    store.dispatch(logoutThunk()).then(res => {
+      logoutMethod();
+    });
+  }
 }
 
 const [selectedBar, setSelected] = useState<number>(0);

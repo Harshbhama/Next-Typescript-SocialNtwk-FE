@@ -10,7 +10,7 @@ import store from "@/store/store";
 import { StoriesCard } from "@/components/Card";
 import LinearIndeterminate from "@/components/LinearBar";
 import { getLikedThunk } from "@/store/reducers/likedReducer";
-
+import { logoutMethod } from "@/helpers/utils";
 interface State {
   getStoriesReducer: {
     loading: String,
@@ -42,7 +42,6 @@ const Landing  = () => {
   const selectedBar = useSelector((state: SelectedSideBar) => state.sideBarSlice);
   useEffect(() => {
     store.dispatch(getStoriesWithLikesThunk()).then(res => setStory(res.payload));
-    store.dispatch(getLikedThunk());
   },[])
   // const test = useCallback(() => {
 
@@ -62,12 +61,12 @@ const Landing  = () => {
     fetchData()
   },[selectedBar.selected])
   useEffect(() => {
-    if(stories === null){
-      localStorage.removeItem("loginDetails");
-      localStorage.removeItem("userId");
-      Router.push("/");
-      setStory({});
-    }
+    console.log("stories",stories)
+    // if(stories === null){
+    //   logoutMethod();
+     
+    //   setStory({});
+    // }
   },[stories])  
   return(
     <>
