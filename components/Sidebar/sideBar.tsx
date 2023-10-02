@@ -21,6 +21,7 @@ import { changeSelectedSideBar } from "@/store/reducers/sideBarSlice";
 import { logoutThunk } from "@/store/reducers/loginReducerRedux";
 import store from "@/store/store";
 import { logoutMethod } from "@/helpers/utils";
+import { addStoryTrigger } from "@/store/reducers/addStorySlice";
 interface SidebarProps {
   title: String,
   icon: any,
@@ -54,12 +55,13 @@ const onSelectBar = (props: SidebarProps, index: number): void => {
       logoutMethod();
     });
   }
+  store.dispatch(addStoryTrigger(false))
 }
 
 const [selectedBar, setSelected] = useState<number>(0);
   return (
     <div className={`${variables.colCheck}`}>
-      <div className={variables.colCheck3}>
+      <div className={variables.colCheck2}>
         <Card className="h-[calc(100vh-2rem)] w-full max-w-xs p-4 shadow-xl shadow-blue-gray-900/5">
           <div className="mb-2 p-4">
             <Typography variant="h5" color="blue-gray">
@@ -80,7 +82,7 @@ const [selectedBar, setSelected] = useState<number>(0);
           </List>
         </Card>
       </div>
-      <div className={`${variables.contentAlign} ${variables.colCheck9}`}>
+      <div className={`${variables.contentAlign} ${variables.colCheck10}`}>
         {children}
       </div>
     </div>

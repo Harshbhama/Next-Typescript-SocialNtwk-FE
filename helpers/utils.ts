@@ -16,3 +16,6 @@ export const logoutMethod = () => {
   localStorage.removeItem("userId");
   Router.push("/");
 }
+export const onUploadSnap = (ref: any) => {
+  ref.current.click()
+}

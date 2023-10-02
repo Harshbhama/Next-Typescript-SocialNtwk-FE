@@ -1,16 +1,11 @@
 import React, {memo, useCallback, useEffect, useState} from "react"
-import { getStories } from "@/apis/Stories/Story"
-import Router from "next/router";
-import { useDispatch, useSelector } from "react-redux";
-import { increment, incrementByAmount } from "@/store/counterSlice";
-import { addTodo } from "@/store/reducers/todoSlice";
-import getStoriesReducer, { getStoriesThunk, getStoriesByIdThunk, getStoriesWithLikesThunk } from "@/store/reducers/getStoriesReducer";
-import { increamentTest } from "@/store/reducers/getStoriesReducer";
+import {  useSelector } from "react-redux";
+import  { getStoriesByIdThunk, getStoriesWithLikesThunk } from "@/store/reducers/getStoriesReducer";
 import store from "@/store/store";
 import { StoriesCard } from "@/components/Card";
 import LinearIndeterminate from "@/components/LinearBar";
-import { getLikedThunk } from "@/store/reducers/likedReducer";
-import { logoutMethod } from "@/helpers/utils";
+// import { AddStoryForm } from "@/components/addSto";
+import { AddStoryForm } from "@/components/AddStoryForm";
 interface State {
   getStoriesReducer: {
     loading: String,
@@ -35,17 +30,20 @@ interface LikedInt {
     liked: likedObj[]
   }
 }
+interface AddStoryReducer {
+  addStoryReducer: {
+    addStory: Boolean
+  }
+}
 
 const Landing  = () => {
   const [stories, setStory] = useState<{data?: any}>({});
   const likedData = useSelector((state: State) => state.getStoriesReducer);
   const selectedBar = useSelector((state: SelectedSideBar) => state.sideBarSlice);
+  const addStoryCheck = useSelector((state: AddStoryReducer) => state.addStoryReducer.addStory);
   useEffect(() => {
     store.dispatch(getStoriesWithLikesThunk()).then(res => setStory(res.payload));
   },[])
-  // const test = useCallback(() => {
-
-  // },[])
   const fetchData = (): void => {
     if(selectedBar.selected === 'My Feed'){
       store.dispatch(getStoriesByIdThunk()).then((res) => {
@@ -61,17 +59,15 @@ const Landing  = () => {
     fetchData()
   },[selectedBar.selected])
   useEffect(() => {
-    console.log("stories",stories)
     // if(stories === null){
     //   logoutMethod();
-     
     //   setStory({});
     // }
   },[stories])  
   return(
     <>
      {likedData.loading === 'pending' && <LinearIndeterminate />}
-     <div className="grid gap-4 grid-cols-2">
+     {(!addStoryCheck) ? <div className="grid gap-4 grid-cols-2">
       {
         Array.isArray(stories) && stories.map((story, index) => {
           return(
@@ -80,7 +76,9 @@ const Landing  = () => {
         })
       }
      </div>
-    
+      :
+      <AddStoryForm /> 
+    }
     </>
   )
 }

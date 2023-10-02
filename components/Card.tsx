@@ -32,7 +32,6 @@ import { makeLikeUnlikeThunk } from "@/store/reducers/likedReducer";
 
 export const StoriesCard: React.FC<Story> = ({story, fetchData}) => {
   const currentUserId = Number(localStorage.getItem("userId"));
-  console.log(currentUserId)
   const likeUnlikeMethod = async (id:number, condition: Boolean) => {
     let payload: payload
     if(!condition){
@@ -57,8 +56,6 @@ export const StoriesCard: React.FC<Story> = ({story, fetchData}) => {
     }
    
   }
-
-  console.log(story)
   return (  
     <Card className="w-full max-w-[26rem] shadow-lg">
       <CardHeader floated={false} color="blue-gray">

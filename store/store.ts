@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux'
 import loginReducerRedux from './reducers/loginReducerRedux'
 import sideBarSlice from './reducers/sideBarSlice'
 import likedReducer from './reducers/likedReducer'
+import addStorySlice from './reducers/addStorySlice'
 const initialState = {}
 
 const middleware = [thunk];
@@ -25,7 +26,8 @@ const store = configureStore({
         todoSlice: todoSlice,
         loginReducerRedux: loginReducerRedux,
         sideBarSlice: sideBarSlice,
-        likedReducer: likedReducer
+        likedReducer: likedReducer,
+        addStoryReducer: addStorySlice
     }
   })
 
