@@ -1,13 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice, createAction } from '@reduxjs/toolkit'
-import { getStories, getStoriesWithLikes } from '@/apis/Stories/Story'
+import { getStoriesWithLikes, uploadStory } from '@/apis/Stories/Story'
 // First, create the thunk
-export const getStoriesThunk = createAsyncThunk(
-  'users/getStories',
-  async (thunkAPI) => {
-    const response = await getStories(true)
-    return response?.data?.data?.getAllStory
-  }
-)
 export const getStoriesByIdThunk = createAsyncThunk(
   'users/getStoriesById',
   async (thunkAPI) => {
@@ -22,6 +15,17 @@ export const getStoriesWithLikesThunk = createAsyncThunk(
     return response?.data?.data?.getStoryWithLikes
   }
 )
+export const uploadStoryThunk = createAsyncThunk(
+  'users/uploadStory',
+  async (payload: Payload, thunkAPI) => {
+    const response = await uploadStory(payload)
+    return response
+  }
+)
+interface Payload {
+  formData: any,
+  inputProps: any
+}
 interface UsersState {
   entities: {}
   idSpecificEntities: {}
@@ -46,15 +50,6 @@ const usersSlice = createSlice({
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
-    builder.addCase(getStoriesThunk.fulfilled, (state, action) => {
-      // Add user to the state array
-      state.entities = action.payload?.payload?.data?.data?.getAllStory
-      state.loading = 'idle'
-    })
-    builder.addCase(getStoriesThunk.pending, (state, action) => {
-        //console.log("In pending state")
-        state.loading = 'pending'
-    })
     builder.addCase(getStoriesByIdThunk.fulfilled, (state, action) => {
       //console.log("action id",action)
       state.idSpecificEntities = action.payload
@@ -75,6 +70,12 @@ const usersSlice = createSlice({
     })
     builder.addCase(increamentTest, (state, action) => {
       state.entities={"ddd": 'ffff'}
+    })
+    builder.addCase(uploadStoryThunk.fulfilled, (state: any, action: PayloadAction<any>) => {
+      state.loading = 'idle'
+    })
+    builder.addCase(uploadStoryThunk.pending, (state: any, action: PayloadAction<any>) => {
+      state.loading = 'pending'
     })
     
   },

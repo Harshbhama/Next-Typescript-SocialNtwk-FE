@@ -6,6 +6,8 @@ import {
 } from "@material-tailwind/react";
 import variables from "../styles/form.module.scss"
 import { FileUpload } from "./FileUpload";
+import { uploadStoryThunk } from "@/store/reducers/getStoriesReducer";
+import store from "@/store/store";
 export const AddStoryForm = () => {
   const ref = useRef(null);
   const [file, setFile] = useState<any>("");
@@ -17,11 +19,20 @@ export const AddStoryForm = () => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('fileName', file.name);
-    console.log("formData",formData)
-    console.log("inputProps",inputProps)
     if(!file){
       alert("PLease upload file")
     }
+    let data = {
+      formData: formData ,
+      inputProps: inputProps
+    }
+    store.dispatch(uploadStoryThunk(data)).then(res => {
+      if(res.payload.data.error === false){
+          alert("File uploaded successfully");
+      }else{
+        alert("Some error while uploading")
+      }
+    })
   }
   return(
     <div>
