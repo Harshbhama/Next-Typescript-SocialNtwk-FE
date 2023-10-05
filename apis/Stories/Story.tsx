@@ -49,8 +49,10 @@ export const uploadStory = (payload: any) => {
       url: 'http://localhost:4000/upload/uploadStory',
       method: 'post',
       data: payload.formData,
+      withCredentials: true,
       headers: {
         "Content-Type": "multipart/form-data",
+        inputData: JSON.stringify(payload.inputProps)
       },
     }).then((result: any) => {
       resolve(result)

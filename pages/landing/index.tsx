@@ -3,6 +3,7 @@ import {  useSelector } from "react-redux";
 import  { getStoriesByIdThunk, getStoriesWithLikesThunk } from "@/store/reducers/getStoriesReducer";
 import store from "@/store/store";
 import { StoriesCard } from "@/components/Card";
+import styles from "../../styles/landing.module.scss";
 import LinearIndeterminate from "@/components/LinearBar";
 // import { AddStoryForm } from "@/components/addSto";
 import { AddStoryForm } from "@/components/AddStoryForm";
@@ -67,7 +68,7 @@ const Landing  = () => {
   return(
     <>
      {likedData.loading === 'pending' && <LinearIndeterminate />}
-     {(!addStoryCheck) ? <div className="grid gap-4 grid-cols-2">
+     {(!addStoryCheck) ? <div className={`grid gap-4 grid-cols-2 ${styles.landingCardsContainer}`}>
       {
         Array.isArray(stories) && stories.map((story, index) => {
           return(
