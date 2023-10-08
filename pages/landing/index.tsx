@@ -58,7 +58,7 @@ const Landing  = () => {
   }
   useEffect(() => {
     fetchData()
-  },[selectedBar.selected])
+  },[selectedBar.selected, addStoryCheck])
   useEffect(() => {
     // if(stories === null){
     //   logoutMethod();

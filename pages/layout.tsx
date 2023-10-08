@@ -13,9 +13,8 @@ export const Layout = ({children}: any) => {
   const MemoizedSidebar = React.memo(DefaultSidebar)
    return(
     <>
-      <ComplexNavbar />
+      {checkForLoginPage(asPath) && <ComplexNavbar />}
       {checkForLoginPage(asPath) ? <MemoizedSidebar children={children}/> : <div>{children}</div>}
-      <div>Footer</div>
     </>
    ) 
 }

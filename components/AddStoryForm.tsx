@@ -7,6 +7,7 @@ import {
 import variables from "../styles/form.module.scss"
 import { FileUpload } from "./FileUpload";
 import { uploadStoryThunk } from "@/store/reducers/getStoriesReducer";
+import { addStoryTrigger } from "@/store/reducers/addStorySlice";
 import store from "@/store/store";
 export const AddStoryForm = () => {
   const [file, setFile] = useState<any>("");
@@ -27,7 +28,8 @@ export const AddStoryForm = () => {
     }
     store.dispatch(uploadStoryThunk(data)).then(res => {
       if(res?.payload?.data?.error === false){
-          alert("File uploaded successfully");
+          // alert("File uploaded successfully");
+          store.dispatch(addStoryTrigger(false));
       }else{
         alert("Some error while uploading")
       }

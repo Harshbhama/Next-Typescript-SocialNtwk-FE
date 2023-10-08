@@ -49,7 +49,6 @@ export function DefaultSidebar({ children } : any) {
 const onSelectBar = (props: SidebarProps, index: number): void => {
   setSelected(index);
   store.dispatch(changeSelectedSideBar(props?.title))
-  console.log("index",index)
   if(index === 5){
     store.dispatch(logoutThunk()).then(res => {
       logoutMethod();
