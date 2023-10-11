@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import help from "../../helpers/help" 
 import ErrorBoundaries from "@/components/ErrorBoundary";
 import StrictMode from "@/components/StrictMode";
 import MemoComponent from "@/components/MemoComponent";

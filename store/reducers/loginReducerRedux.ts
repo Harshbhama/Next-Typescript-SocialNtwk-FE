@@ -1,5 +1,4 @@
 import { PayloadAction, createAsyncThunk, createSlice, createAction } from '@reduxjs/toolkit'
-import { getStories } from '@/apis/Stories/Story'
 import { LoginApi, LogoutApi } from '@/apis/Login/LoginApi'
 // First, create the thunk
 export const getLoginThunk = createAsyncThunk(

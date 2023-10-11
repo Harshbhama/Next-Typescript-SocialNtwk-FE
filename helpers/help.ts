@@ -4,9 +4,9 @@ const testDoc = (document: any) => {
   //console.log(document)
 }
 
-function User(){
-  this.name = "Bob"
-}
+// function User(){
+//   this.name = "Bob"
+// }
 
 const functionToLbs = (weight: number | string): number => { // Union operator
   if(typeof weight === 'number'){
@@ -166,7 +166,7 @@ const help = (data: String) => {
   // interface TestInterface = number | string This will give error
 
   // A constructor in javaascript is used to create object, it is done with new keyword
-  var userCons = new User();
+  // var userCons = new User();
   //console.log("Contructor", userCons)
   
 
