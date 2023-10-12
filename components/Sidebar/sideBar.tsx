@@ -16,6 +16,7 @@ import {
   PowerIcon,
 } from "@heroicons/react/24/solid";
 import variables from "../../styles/login.module.scss";
+import sidebarStyles from "../../styles/sidebar.module.scss";
 import { useState } from "react";
 import { changeSelectedSideBar } from "@/store/reducers/sideBarSlice";
 import { logoutThunk } from "@/store/reducers/loginReducerRedux";
@@ -59,9 +60,9 @@ const onSelectBar = (props: SidebarProps, index: number): void => {
 
 const [selectedBar, setSelected] = useState<number>(0);
   return (
-    <div className={`${variables.colCheck}`}>
+    <div className={`${variables.colCheck} ${sidebarStyles.sidebarContainer}`}>
       <div className={variables.colCheck2}>
-        <Card className="h-[calc(100vh-2rem)] w-full max-w-xs p-4 shadow-xl shadow-blue-gray-900/5">
+        <Card className="h-[calc(100vh-2rem)] w-full max-w-xs p-4 shadow-xl shadow-blue-gray-900/5 list-component">
           <div className="mb-2 p-4">
             <Typography variant="h5" color="blue-gray">
               Material

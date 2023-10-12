@@ -13,6 +13,7 @@ export const getStoriesWithLikes = (allStories: Boolean) => {
         msg
         liked_by_user
         liked_count
+        num_rows
       }
     }` : 
     `query{
@@ -26,6 +27,7 @@ export const getStoriesWithLikes = (allStories: Boolean) => {
         msg
         liked_by_user
         liked_count
+        num_rows
       }
     }`
     axios({
@@ -34,6 +36,10 @@ export const getStoriesWithLikes = (allStories: Boolean) => {
       withCredentials: true,
       data: {
         query: queryGenerator
+      },
+      params: {
+        page: 1,
+        docs: 6
       }
     }).then((result: any) => {
       resolve(result)

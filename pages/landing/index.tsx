@@ -65,10 +65,11 @@ const Landing  = () => {
     //   setStory({});
     // }
   },[stories])  
+  console.log("story",stories)
   return(
     <>
      {likedData.loading === 'pending' && <LinearIndeterminate />}
-     {(!addStoryCheck) ? <div className={`grid gap-4 grid-cols-2 ${styles.landingCardsContainer}`}>
+     {(!addStoryCheck) ? <div className={`grid gap-4 grid-cols-2 2xl:grid-cols-3 ${styles.landingCardsContainer}`}>
       {
         Array.isArray(stories) && stories.map((story, index) => {
           return(

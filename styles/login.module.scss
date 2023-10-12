@@ -11,9 +11,12 @@
     width: 20%;
   }
   .colCheck10{
-    width: 80%;
+    width: 100%;
     padding-left: 16px;
     padding-right: 16px;
+    @media screen and (min-width: '800px') {
+      width: 80%;
+    }
   }
   .colCheck9{
     width: 70%;

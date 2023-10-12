@@ -1,0 +1,16 @@
+.sidebarContainer {
+  :global{
+    nav {
+      min-width: inherit;
+    }
+    .list-component {
+      display: none;
+      
+      @media screen and (min-width: '800px') {
+        display: inherit;
+        height: 90vh;
+        overflow: auto;
+      }
+    }
+  }
+}
