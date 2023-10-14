@@ -44,17 +44,14 @@ export const StoriesCard: React.FC<Story> = ({story, fetchData}) => {
         story_id: id,
         likeCondition: false
       }
-      
     }
     try{
       await store.dispatch(makeLikeUnlikeThunk(payload)).then(res => {
         fetchData();
       })
-      
     }catch(err){
       console.log(err)
     }
-   
   }
   return (  
     <Card className="w-full max-w-[26rem] shadow-lg">

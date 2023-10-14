@@ -19,3 +19,6 @@ export const logoutMethod = () => {
 export const onUploadSnap = (ref: any) => {
   ref.current.click()
 }
+export const getPaginationNumbers = (totalData: number, pageData: number) => {
+  return Math.ceil(totalData/pageData);
+}

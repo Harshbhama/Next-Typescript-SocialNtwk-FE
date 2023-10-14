@@ -1,6 +1,9 @@
 import axios from "axios";
-import { fetchStories } from "@/store/actions/storiesAction";
-export const getStoriesWithLikes = (allStories: Boolean) => {
+interface PageObj {
+  page: number,
+  docs: number
+}
+export const getStoriesWithLikes = (allStories: Boolean, pageObj: PageObj) => {
   return new Promise<any>((resolve, reject) => {
     let queryGenerator =  allStories ? `query{
       getStoryWithLikes {
@@ -37,10 +40,7 @@ export const getStoriesWithLikes = (allStories: Boolean) => {
       data: {
         query: queryGenerator
       },
-      params: {
-        page: 1,
-        docs: 6
-      }
+      params: pageObj
     }).then((result: any) => {
       resolve(result)
     }).catch(err => {

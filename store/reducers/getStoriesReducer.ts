@@ -3,15 +3,15 @@ import { getStoriesWithLikes, uploadStory } from '@/apis/Stories/Story'
 // First, create the thunk
 export const getStoriesByIdThunk = createAsyncThunk(
   'users/getStoriesById',
-  async (thunkAPI) => {
-    const response = await getStoriesWithLikes(false)
+  async (pageObj: PageObj, thunkAPI) => {
+    const response = await getStoriesWithLikes(false, pageObj)
     return response?.data?.data?.getStoryWithLikesById
   }
 )
 export const getStoriesWithLikesThunk = createAsyncThunk(
   'users/getStoriesWithLikes',
-  async (thunkAPI) => {
-    const response = await getStoriesWithLikes(true)
+  async (pageObj: PageObj, thunkAPI) => {
+    const response = await getStoriesWithLikes(true, pageObj)
     return response?.data?.data?.getStoryWithLikes
   }
 )
@@ -22,6 +22,10 @@ export const uploadStoryThunk = createAsyncThunk(
     return response
   }
 )
+interface PageObj {
+  page: number,
+  docs: number
+}
 interface Payload {
   formData: any,
   inputProps: any
@@ -30,14 +34,15 @@ interface UsersState {
   entities: {}
   idSpecificEntities: {}
   likedData: {} 
-  loading: 'idle' | 'pending' | 'succeeded' | 'failed'
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed',
+  pageData: number
 }
-
 const initialState = {
   entities: {},
   idSpecificEntities: {},
   likedData: {},
   loading: 'idle',
+  pageData: 6
 }  as UsersState
 export const increamentTest = createAction<UsersState>('increamentTest')
 
