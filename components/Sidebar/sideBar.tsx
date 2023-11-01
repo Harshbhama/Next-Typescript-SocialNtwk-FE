@@ -23,6 +23,7 @@ import { logoutThunk } from "@/store/reducers/loginReducerRedux";
 import store from "@/store/store";
 import { logoutMethod } from "@/helpers/utils";
 import { addStoryTrigger } from "@/store/reducers/addStorySlice";
+import { toggleInnerStoryBtn } from "@/store/reducers/innerStorySlice";
 interface SidebarProps {
   title: String,
   icon: any,
@@ -56,6 +57,7 @@ const onSelectBar = (props: SidebarProps, index: number): void => {
     });
   }
   store.dispatch(addStoryTrigger(false))
+  store.dispatch(toggleInnerStoryBtn(false))
 }
 
 const [selectedBar, setSelected] = useState<number>(0);

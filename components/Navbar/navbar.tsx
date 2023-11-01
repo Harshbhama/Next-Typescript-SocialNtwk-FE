@@ -22,6 +22,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { addStoryTrigger } from "@/store/reducers/addStorySlice";
 import store from "@/store/store";
+import { toggleInnerStoryBtn } from "@/store/reducers/innerStorySlice";
 // profile menu component
 const profileMenuItems = [
   {
@@ -96,6 +97,7 @@ function NavList() {
 
 const addStoryMethod = (): void => {
   store.dispatch(addStoryTrigger(true));
+  store.dispatch(toggleInnerStoryBtn(false));
 }
 
 export function ComplexNavbar() {

@@ -28,7 +28,6 @@ export const AddStoryForm = () => {
     }
     store.dispatch(uploadStoryThunk(data)).then(res => {
       if(res?.payload?.data?.error === false){
-          // alert("File uploaded successfully");
           store.dispatch(addStoryTrigger(false));
       }else{
         alert("Some error while uploading")

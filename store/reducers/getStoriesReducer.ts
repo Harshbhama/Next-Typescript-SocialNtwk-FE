@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice, createAction } from '@reduxjs/toolkit'
-import { getStoriesWithLikes, uploadStory } from '@/apis/Stories/Story'
+import { getStoriesWithLikes, uploadStory, getStoryWithId } from '@/apis/Stories/Story'
 // First, create the thunk
 export const getStoriesByIdThunk = createAsyncThunk(
   'users/getStoriesById',
@@ -22,6 +22,13 @@ export const uploadStoryThunk = createAsyncThunk(
     return response
   }
 )
+export const getStoryForIdThunk = createAsyncThunk(
+  'users/getStoryForIdThunk',
+  async (payload: number, thunkAPI) => {
+    const response = await getStoryWithId(payload)
+    return response
+  }
+)
 interface PageObj {
   page: number,
   docs: number
@@ -34,6 +41,7 @@ interface UsersState {
   entities: {}
   idSpecificEntities: {}
   likedData: {} 
+  idSpecificStoryData: {}
   loading: 'idle' | 'pending' | 'succeeded' | 'failed',
   pageData: number
 }
@@ -42,6 +50,7 @@ const initialState = {
   idSpecificEntities: {},
   likedData: {},
   loading: 'idle',
+  idSpecificStoryData: {},
   pageData: 6
 }  as UsersState
 export const increamentTest = createAction<UsersState>('increamentTest')
@@ -82,7 +91,13 @@ const usersSlice = createSlice({
     builder.addCase(uploadStoryThunk.pending, (state: any, action: PayloadAction<any>) => {
       state.loading = 'pending'
     })
-    
+    builder.addCase(getStoryForIdThunk.pending, (state, action) => {
+      state.loading = 'pending'  
+    })
+    builder.addCase(getStoryForIdThunk.fulfilled, (state, action) => {
+      state.loading = 'idle'  
+      state.idSpecificStoryData = action.payload
+    })
   },
 })
 export default usersSlice.reducer

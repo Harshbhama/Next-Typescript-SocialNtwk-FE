@@ -19,9 +19,10 @@ interface Story {
     title: string,
     liked_by_user: [number | null]
   }
-  fetchData: any
+  fetchData: any,
+  onCardClick: any
 }
-
+import InnerStory from "./InnerStory";
 interface payload {
   story_id: number,
   likeCondition: Boolean
@@ -29,35 +30,42 @@ interface payload {
 import store from "@/store/store";
 import { trimText } from "@/helpers/utils";
 import { makeLikeUnlikeThunk } from "@/store/reducers/likedReducer";
-
-export const StoriesCard: React.FC<Story> = ({story, fetchData}) => {
+import Image from "next/image";
+import { getStoryForIdThunk } from "@/store/reducers/getStoriesReducer";
+import { useState } from "react";
+export const StoriesCard: React.FC<Story> = ({ story, fetchData, onCardClick }) => {
   const currentUserId = Number(localStorage.getItem("userId"));
-  const likeUnlikeMethod = async (id:number, condition: Boolean) => {
+  const [innerStory, toggleInnerStory] = useState(false);
+  const likeUnlikeMethod = async (id: number, condition: Boolean) => {
     let payload: payload
-    if(!condition){
-        payload = {
+    if (!condition) {
+      payload = {
         story_id: id,
         likeCondition: true
       }
-    }else{
-        payload = {
+    } else {
+      payload = {
         story_id: id,
         likeCondition: false
       }
     }
-    try{
+    try {
       await store.dispatch(makeLikeUnlikeThunk(payload)).then(res => {
         fetchData();
       })
-    }catch(err){
+    } catch (err) {
       console.log(err)
     }
   }
-  return (  
+
+  return (
+    <>
     <Card className="w-full max-w-[26rem] shadow-lg">
       <CardHeader floated={false} color="blue-gray">
-        <img
-          src={story?.picture}
+        <Image
+          src={story.picture}
+          width={400}
+          height={200}
           alt="ui/ux review check"
         />
         <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-tr from-transparent via-transparent to-black/60 " />
@@ -70,8 +78,8 @@ export const StoriesCard: React.FC<Story> = ({story, fetchData}) => {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
-            fill={story?.liked_by_user.includes(currentUserId) ? "currentColor": "#f8f8fe"}
-            onClick = {() => likeUnlikeMethod(story.id, story?.liked_by_user.includes(currentUserId))}
+            fill={story?.liked_by_user.includes(currentUserId) ? "currentColor" : "#f8f8fe"}
+            onClick={() => likeUnlikeMethod(story.id, story?.liked_by_user.includes(currentUserId))}
             className="h-6 w-6"
           >
             <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
@@ -103,7 +111,7 @@ export const StoriesCard: React.FC<Story> = ({story, fetchData}) => {
           </Typography>
         </div>
         <Typography color="gray">
-          
+
           {trimText(story?.description, 300)}
         </Typography>
         <div className="group mt-8 inline-flex flex-wrap items-center gap-3">
@@ -195,10 +203,13 @@ export const StoriesCard: React.FC<Story> = ({story, fetchData}) => {
         </div>
       </CardBody>
       <CardFooter className="pt-3">
-        <Button size="lg" fullWidth={true}>
-          Reserve
+        <Button size="lg" fullWidth={true}
+          onClick={() => onCardClick(story?.id)}
+        >
+          Check Story !
         </Button>
       </CardFooter>
     </Card>
+    </>
   );
 }

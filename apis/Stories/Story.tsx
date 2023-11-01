@@ -67,3 +67,32 @@ export const uploadStory = (payload: any) => {
     });
   })
 }
+export const getStoryWithId = (payload: any) => {
+  return new Promise<any>((resolve, reject) => {
+    let queryGenerator =  
+    `mutation{
+      getStoryById(id: ${payload}){
+        id
+        description
+        picture
+        user_id
+        msg
+        inner_id
+        inner_picture
+        liked_by_user_inner_story
+      }
+    }`
+    axios({
+      url: 'http://localhost:4000/stories/graphql',
+      method: 'post',
+      withCredentials: true,
+      data: {
+        query: queryGenerator
+      }
+    }).then((result: any) => {
+      resolve(result)
+    }).catch(err => {
+      reject(err)
+    });
+  })
+}

@@ -169,7 +169,43 @@ const help = (data: String) => {
   // var userCons = new User();
   //console.log("Contructor", userCons)
   
+  // Call, Bind, Apply
+  // var method = {
+  //   firstName: "harsh",
+  //   lastName: "bhama",
+  //   print: function() {
+  //     return(this.firstName + " " + this.lastName)
+  //   }
+  // }
+  // var person = function(first, second){
+  //   console.log(this.print() + first + second);
+  // }
+  //  person.bind(method)();
+  //  person.call(method, 'a','b');
+  // person.apply(method, ['a', 'b'])
+  // let arr = [1,2,3,4]
+  // let newValue = arr.reduce((acc, curentValue) => {
+  //   return acc+curentValue
+  // })
 
+  // console.log("newValue",newValue)
+
+  // Closure example 
+
+  function makeFunc() {
+    const name = "Mozilla";
+    function displayName() {
+      console.log(name);
+    }
+    return displayName;
+  }
+  
+  const myFunc = makeFunc();
+  myFunc();
+  // In this case, myFunc is a reference to the instance of the function displayName that is created when makeFunc is run
+  // The instance of displayName maintains a reference to its lexical environment
+  // , within which the variable name exists. 
+  // For this reason, when myFunc is invoked, the variable name remains available for use, and "Mozilla" is passed to console.log.
 
 }
 export default help; 

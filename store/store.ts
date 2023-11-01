@@ -12,6 +12,7 @@ import loginReducerRedux from './reducers/loginReducerRedux'
 import sideBarSlice from './reducers/sideBarSlice'
 import likedReducer from './reducers/likedReducer'
 import addStorySlice from './reducers/addStorySlice'
+import innerStorySlice from './reducers/innerStorySlice'
 const initialState = {}
 
 const middleware = [thunk];
@@ -27,7 +28,8 @@ const store = configureStore({
         loginReducerRedux: loginReducerRedux,
         sideBarSlice: sideBarSlice,
         likedReducer: likedReducer,
-        addStoryReducer: addStorySlice
+        addStoryReducer: addStorySlice,
+        innerStoryReducer: innerStorySlice
     }
   })
 
