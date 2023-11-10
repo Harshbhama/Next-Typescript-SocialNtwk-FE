@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice, createAction } from '@reduxjs/toolkit'
-import { getStoriesWithLikes, uploadStory, getStoryWithId } from '@/apis/Stories/Story'
+import { getStoriesWithLikes, uploadStory,uploadInnerStory, getStoryWithId } from '@/apis/Stories/Story'
 // First, create the thunk
 export const getStoriesByIdThunk = createAsyncThunk(
   'users/getStoriesById',
@@ -26,6 +26,13 @@ export const getStoryForIdThunk = createAsyncThunk(
   'users/getStoryForIdThunk',
   async (payload: number, thunkAPI) => {
     const response = await getStoryWithId(payload)
+    return response
+  }
+)
+export const uploadInnerStoryThunk = createAsyncThunk(
+  'users/uploadInnerStory',
+  async (payload: any, thunkAPI) => {
+    const response = await uploadInnerStory(payload)
     return response
   }
 )
@@ -96,7 +103,14 @@ const usersSlice = createSlice({
     })
     builder.addCase(getStoryForIdThunk.fulfilled, (state, action) => {
       state.loading = 'idle'  
-      state.idSpecificStoryData = action.payload
+      state.idSpecificStoryData = action.payload.data.data?.getStoryById?.[0]
+    })
+    builder.addCase(uploadInnerStoryThunk.pending, (state, action) => {
+      state.loading = 'pending'  
+    })
+    builder.addCase(uploadInnerStoryThunk.fulfilled, (state, action) => {
+      state.loading = 'idle'  
+      // state.idSpecificStoryData = action.payload.data.data?.getStoryById?.[0]
     })
   },
 })

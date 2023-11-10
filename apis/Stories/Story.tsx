@@ -80,6 +80,7 @@ export const getStoryWithId = (payload: any) => {
         inner_id
         inner_picture
         liked_by_user_inner_story
+        title
       }
     }`
     axios({
@@ -89,6 +90,24 @@ export const getStoryWithId = (payload: any) => {
       data: {
         query: queryGenerator
       }
+    }).then((result: any) => {
+      resolve(result)
+    }).catch(err => {
+      reject(err)
+    });
+  })
+}
+export const uploadInnerStory = (payload: any) => {
+  return new Promise<any>((resolve, reject) => {
+    axios({
+      url: 'http://localhost:4000/upload/uploadInnerStory',
+      method: 'post',
+      data: payload.formData,
+      withCredentials: true,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        storyId: JSON.stringify(payload.storyId)
+      },
     }).then((result: any) => {
       resolve(result)
     }).catch(err => {

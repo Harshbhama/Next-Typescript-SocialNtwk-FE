@@ -9,6 +9,7 @@ interface Story {
     className: string
   }
   setFile: any
+  key: any
 }
 
 export const FileUpload: React.FC<Story> = ({fileProps, setFile}) => {
@@ -19,7 +20,7 @@ export const FileUpload: React.FC<Story> = ({fileProps, setFile}) => {
   }
   return (
     <>
-      <Button onClick={() => onUploadSnap(ref)} className={fileProps?.className}> Upload SNAP !</Button>
+      <Button onClick={() => onUploadSnap(ref)} className={fileProps?.className}> {fileProps?.name}</Button>
       <input ref={ref} type="file" className="hidden" onChange={handleChange} />
     </>
   )

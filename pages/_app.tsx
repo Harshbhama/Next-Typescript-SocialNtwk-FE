@@ -6,6 +6,9 @@ import store from "@/store/store";
 import { Layout } from "../components/layout";
 import '@/styles/globals.css';
 import help from "@/helpers/help";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
+config.autoAddCss = false;
 class MyApp extends App{
   
   render(){
