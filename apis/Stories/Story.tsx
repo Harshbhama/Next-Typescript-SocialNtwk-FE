@@ -81,6 +81,10 @@ export const getStoryWithId = (payload: any) => {
         inner_picture
         liked_by_user_inner_story
         title
+        liked_arr{
+          liked_inner_story_id
+          liked_by_users
+        }
       }
     }`
     axios({

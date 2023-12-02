@@ -75,6 +75,9 @@ const Landing = () => {
   useEffect(() => {
     fetchData()
   }, [selectedBar.selected, addStoryCheck, activePage])
+  useEffect(() => {
+    setActive(1);
+  },[selectedBar.selected])
   return (
     <>
       {likedData.loading === 'pending' && <LinearIndeterminate />}
