@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { toggleInnerStoryBtn } from "@/store/reducers/innerStorySlice";
+import { toggleInnerStoryBtn, likeInnerStoryThunk, unlikeInnerStoryThunk } from "@/store/reducers/innerStorySlice";
 import store from "@/store/store";
 import { Button } from "@material-tailwind/react";
 import Image from "next/image";
@@ -35,6 +35,7 @@ interface InnerStory {
 const InnerStory = () => {
   const idSpecificStoryData = useSelector((state: InnerStory) => state.getStoriesReducer.idSpecificStoryData);
   let currentUserId: any = localStorage.getItem("userId");
+  console.log("idSpecificStoryData",idSpecificStoryData)
   const onUploadFile = (file: any) => {
     const formData = new FormData();
     formData.append('file', file);
@@ -58,7 +59,21 @@ const InnerStory = () => {
       store.dispatch(await getStoryForIdThunk(idSpecificStoryData?.id))
     })
   }
-  console.log("idSpecificStoryData",idSpecificStoryData)
+  const likeUnlikeStoryMethod = (condition: string, inner_id: number) => {
+    if(condition === "like"){
+      store.dispatch(likeInnerStoryThunk({liked_inner_story_id: inner_id, liked_by_user_inner_story: Number(currentUserId)})).then(async res => {
+        store.dispatch(await getStoryForIdThunk(idSpecificStoryData?.id))
+      }).catch(err => {
+        console.log(err)
+      })
+    }else{
+      store.dispatch(unlikeInnerStoryThunk({liked_inner_story_id: inner_id, liked_by_user_inner_story: Number(currentUserId)})).then(async res => {
+        store.dispatch(await getStoryForIdThunk(idSpecificStoryData?.id))
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+  }
   return (
     <div className="pt-[20px] flex flex-col pl-[20px] relative">
       <div className="absolute right-[100px]">
@@ -91,12 +106,8 @@ const InnerStory = () => {
         {!!idSpecificStoryData?.inner_picture?.length && idSpecificStoryData?.inner_picture?.[0] && idSpecificStoryData?.inner_picture?.map((val: any, index: number) => {
           return (
             <div key={index} className="relative">
-              {/* <i className="fa-solid fa-trash-can"></i> */}
-              {/* <FontAwesomeIcon icon="fa-solid fa-trash-can" /> */}
-
               <FontAwesomeIcon icon={faTrash} className="fas fa-check !absolute right-5 top-6 cursor-pointer text-[20px] text-gray-700"
                 onClick={() => onDeletePic(index)} ></FontAwesomeIcon>
-              {/* <Button className="!absolute right-0" onClick = {() => onDeletePic(index)}>Delete</Button> */}
               <Image
                 key={index}
                 src={val}
@@ -129,9 +140,8 @@ const InnerStory = () => {
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  // fill={story?.liked_by_user.includes(currentUserId) ? "currentColor" : "#f8f8fe"}
                   fill={idSpecificStoryData?.liked_arr[index]?.liked_by_users?.includes(parseInt(currentUserId)) ? "currentColor": "#f8f8fe"}
-                  // onClick={() => likeUnlikeMethod(story.id, story?.liked_by_user.includes(currentUserId))}
+                  onClick={idSpecificStoryData?.liked_arr[index]?.liked_by_users?.includes(parseInt(currentUserId)) ? () => likeUnlikeStoryMethod("unlike",  idSpecificStoryData?.inner_id[index]):() => likeUnlikeStoryMethod("like",idSpecificStoryData?.inner_id[index])  }
                   className="h-6 w-6"
                 >
                   <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
